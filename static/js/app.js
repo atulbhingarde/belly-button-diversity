@@ -8,6 +8,23 @@ function getPlots(id) {
     // // BONUS: Build the Gauge Chart
     // // buildGauge(data.WFREQ);
     d3.json("samples.json").then (sampledata =>{
+    var freqcount = [];
+    var freqcounttot = [] ;
+    var i;
+    hh = sampledata.metadata ; 
+
+    for (i=0;i < Object.keys(hh).length ; i++){
+     // console.log("here "+ sampledata.metadata[i]["wfreq"]);
+     // console.log("here "+ sampledata.metadata[i]["ethnicity"]);
+     freqcount[sampledata.metadata[i]["ethnicity"]] =+ sampledata.metadata[i]["wfreq"];
+     freqcounttot[sampledata.metadata[i]["ethnicity"]] =+ 1 ;
+
+     // freqcount[hh["etinicity"]] = hh.metadata[i][wfrew];
+    }
+    var ind;
+    for (ind in freqcount) { console.log(ind + " " + freqcount[ind] + " " +freqcounttot[ind]);}
+    // console.log("here " + sampledata.metadata[0]["wfreq"]);
+
     console.log("here " + sampledata.wfreq );
 
     var data = [{domain: {x: [0, 1], y: [0, 1]}, value: sampledata.wfreq,
@@ -15,12 +32,28 @@ function getPlots(id) {
     type: "indicator", mode: "gauge+number+delta",
     delta: {reference: 9, increasing: {color: "green"}},
     gauge:
-      {axis: {range: [0, 10]}, steps: [{range: [0, 5], color: "lightgray"},
+      {axis: {range: [0, 10]}, steps: [{range: [0, 2], color: "lightgray"},
       {range: [5, 8], color: "gray"}], threshold: {line: {color: "red", width: 4},
-      thickness: 0.75, value: 9}}}];
+      thickness: 0.75, value: freqcount["Caucasian/Asian"]}}}];
 
     var gaugeLayout = {width: 400, height: 500, margin: {t: 0, b: 0}};
     Plotly.newPlot("gauge", data, gaugeLayout);
+    // hh = sampledata.metadata ; 
+    console.log(Object.keys(hh).length);
+    // var freqcount = [];
+    // var freqcounttot = [] ;
+    // var i;
+    // for (i=0;i < Object.keys(hh).length ; i++){
+    //  // console.log("here "+ sampledata.metadata[i]["wfreq"]);
+    //  // console.log("here "+ sampledata.metadata[i]["ethnicity"]);
+    //  freqcount[sampledata.metadata[i]["ethnicity"]] =+ sampledata.metadata[i]["wfreq"];
+    //  freqcounttot[sampledata.metadata[i]["ethnicity"]] =+ 1 ;
+
+    //  // freqcount[hh["etinicity"]] = hh.metadata[i][wfrew];
+    // }
+    // var ind;
+    // for (ind in freqcount) { console.log(ind + " " + freqcount[ind] + " " +freqcounttot[ind]);}
+    // // console.log("here " + sampledata.metadata[0]["wfreq"]);
 
     });
     d3.json("samples.json").then (sampledata =>{
@@ -87,7 +120,7 @@ function getPlots(id) {
             text:  sampledata.samples[0].otu_labels
 
         };
-
+        // var obj = JSON.parse("samples.json");
         // set the layout for the bubble plot
         var layout_2 = {
             xaxis:{title: "OTU ID",linewidth:1 , mirror: true},
