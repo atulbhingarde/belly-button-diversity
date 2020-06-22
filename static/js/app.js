@@ -1,5 +1,28 @@
 function getPlots(id) {
 //Read samples.json
+    // d3.json("sample.json").then(function (sampledata) {
+    // Object.entries(data).forEach(([key, value]) => {
+    //   panelMetadata.append("h5").text(`${key}: ${value}`);
+    // });
+    
+    // // BONUS: Build the Gauge Chart
+    // // buildGauge(data.WFREQ);
+    d3.json("samples.json").then (sampledata =>{
+    console.log("here " + sampledata.wfreq );
+
+    var data = [{domain: {x: [0, 1], y: [0, 1]}, value: sampledata.wfreq,
+    title: {text: "Belly Button Washing Frequency Scrubs Per Week", font: {size: 14}},
+    type: "indicator", mode: "gauge+number+delta",
+    delta: {reference: 9, increasing: {color: "green"}},
+    gauge:
+      {axis: {range: [0, 10]}, steps: [{range: [0, 5], color: "lightgray"},
+      {range: [5, 8], color: "gray"}], threshold: {line: {color: "red", width: 4},
+      thickness: 0.75, value: 9}}}];
+
+    var gaugeLayout = {width: 400, height: 500, margin: {t: 0, b: 0}};
+    Plotly.newPlot("gauge", data, gaugeLayout);
+
+    });
     d3.json("samples.json").then (sampledata =>{
         console.log(sampledata)
         var ids = sampledata.samples[0].otu_ids;
@@ -48,15 +71,17 @@ function getPlots(id) {
         };
 
         // create the bar plot
-    Plotly.newPlot("bar", data, layout);
+        Plotly.newPlot("bar", data, layout);
     
         // The bubble chart
         var trace1 = {
             x: sampledata.samples[0].otu_ids,
             y: sampledata.samples[0].sample_values,
+            // y: sampledata.samples[0].wfreq,
             mode: "markers",
             marker: {
                 size: sampledata.samples[0].sample_values,
+                // size: sampledata.samples[0].wfreq,
                 color: sampledata.samples[0].otu_ids
             },
             text:  sampledata.samples[0].otu_labels
@@ -76,7 +101,7 @@ function getPlots(id) {
         var data1 = [trace1];
 
     // create the bubble plot
-    Plotly.newPlot("bubble", data1, layout_2); 
+        Plotly.newPlot("bubble", data1, layout_2); 
     
     });
 }  
