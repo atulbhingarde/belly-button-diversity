@@ -29,7 +29,7 @@ function getPlots(id) {
 
     var data = [{domain: {x: [0, 1], y: [0, 1]}, value: sampledata.wfreq,
     title: {text: "Belly Button Washing Frequency Scrubs Per Week", font: {size: 14}},
-    type: "indicator", mode: "gauge+number+delta",
+    type: "indicator", mode: "gauge+number",
     delta: {reference: 9, increasing: {color: "green"}},
     gauge:
       {axis: {range: [0, 10]}, steps: [{range: [0, 2], color: "skyblue"},
