@@ -32,8 +32,11 @@ function getPlots(id) {
     type: "indicator", mode: "gauge+number+delta",
     delta: {reference: 9, increasing: {color: "green"}},
     gauge:
-      {axis: {range: [0, 10]}, steps: [{range: [0, 2], color: "lightgray"},
-      {range: [5, 8], color: "gray"}], threshold: {line: {color: "red", width: 4},
+      {axis: {range: [0, 10]}, steps: [{range: [0, 2], color: "skyblue"},
+                                       {range: [2, 4], color: "yellow" }, 
+                                       {range: [4, 6], color: "magenta"},
+                                       {range: [6, 8], color: "gray"},
+                                       {range: [8, 10], color: "wheat"}], threshold: {line: {color: "red", width: 4},
       thickness: 0.75, value: freqcount["Caucasian/Asian"]}}}];
 
     var gaugeLayout = {width: 400, height: 500, margin: {t: 0, b: 0}};
@@ -98,7 +101,7 @@ function getPlots(id) {
                 t: 100,
                 b: 30
             },
-            width: 800,
+            width: 500,
             textposition: "outside",
             texttemplate: "%{text:.2s}",
         };
@@ -135,7 +138,8 @@ function getPlots(id) {
 
     // create the bubble plot
         Plotly.newPlot("bubble", data1, layout_2); 
-    
+        // Plotly.newPlot.add("gauge", data, gaugeLayout);
+
     });
 }  
 // create the function to get the necessary data
